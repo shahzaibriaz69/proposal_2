@@ -25,7 +25,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Romantic Floating Petals Animation */
+        /* Romantic Floating Petals */
         .petals {
             position: fixed;
             top: 0;
@@ -43,95 +43,109 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         h1,
         h2 {
             font-family: 'Dancing Script', cursive;
             color: var(--rose);
+            margin-bottom: 10px;
         }
 
         h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
+            font-size: 3rem;
+        }
+
+        /* Adjusted for mobile */
+        h2 {
+            font-size: 2.5rem;
         }
 
         .sub-text {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            max-width: 90%;
         }
 
-        /* Photo Gallery */
+        /* Photo Gallery - Responsive Grid */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
-            width: 80%;
-            margin: 40px 0;
+            width: 100%;
+            max-width: 800px;
+            margin: 30px 0;
         }
 
         .gallery img {
             width: 100%;
-            height: 250px;
+            height: 200px;
             object-fit: cover;
             border-radius: 15px;
-            border: 5px solid white;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05) rotate(2deg);
         }
 
         /* Letter Section */
         .letter-box {
             background: white;
-            padding: 40px;
+            padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
-            max-width: 600px;
-            line-height: 1.8;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            max-width: 90%;
+            line-height: 1.6;
             border-left: 5px solid var(--rose);
+            font-size: 0.95rem;
         }
 
         /* Interactive Buttons */
         .btn-group {
-            margin-top: 50px;
+            margin-top: 40px;
             position: relative;
-            height: 100px;
             width: 100%;
+            min-height: 150px;
+            /* Space for the escaping button */
         }
 
         button {
-            padding: 15px 45px;
-            font-size: 1.3rem;
+            padding: 12px 30px;
+            font-size: 1.1rem;
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            transition: 0.4s ease;
+            transition: 0.3s ease;
             font-family: 'Poppins', sans-serif;
             font-weight: bold;
+            touch-action: manipulation;
+            /* Optimizes for mobile touch */
         }
 
         #yesBtn {
             background: var(--rose);
             color: white;
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+            z-index: 2;
+            position: relative;
         }
 
         #noBtn {
             background: #adb5bd;
             color: white;
             position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
         }
 
         #finalMessage {
             display: none;
             animation: fadeIn 2s;
+            padding: 20px;
         }
 
         @keyframes fadeIn {
@@ -141,6 +155,35 @@
 
             to {
                 opacity: 1;
+            }
+        }
+
+        /* Desktop Adjustments */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 5rem;
+            }
+
+            h2 {
+                font-size: 3.5rem;
+            }
+
+            .sub-text {
+                font-size: 1.5rem;
+            }
+
+            .letter-box {
+                padding: 40px;
+                font-size: 1.1rem;
+            }
+
+            .gallery img {
+                height: 280px;
+            }
+
+            button {
+                padding: 15px 45px;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -163,10 +206,10 @@
             <img src="https://i.pinimg.com/1200x/e2/52/d1/e252d1bba1a86787a25ff50b76790394.jpg" alt="Us">
             <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=500" alt="Us">
         </div>
-        <p class="letter-box">
+        <div class="letter-box">
             "They say you only fall in love once, but that can't be true. Every time I look at you, I fall in love all
             over again. You are my best friend, my soulmate, and my greatest adventure."
-        </p>
+        </div>
     </section>
 
     <section>
@@ -175,32 +218,34 @@
 
         <div class="btn-group">
             <button id="yesBtn" onclick="happilyEverAfter()">YES, A THOUSAND TIMES!</button>
-            <button id="noBtn" onmouseover="runAway()">No</button>
+            <button id="noBtn" onmouseover="runAway()" ontouchstart="runAway()">No</button>
         </div>
 
         <div id="finalMessage">
-            <h1 style="font-size: 5rem;">❤️ I LOVE YOU! ❤️</h1>
+            <h1 style="font-size: 3.5rem;">❤️ I LOVE YOU! ❤️</h1>
             <p>I can't wait to spend the rest of my life making you smile.</p>
             <div style="font-size: 3rem;">💍</div>
         </div>
     </section>
 
     <script>
-        // Move the "No" button
+        // Move the "No" button logic adjusted for screen boundaries
         function runAway() {
             const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 50);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            const padding = 20; // Keep it away from the very edge
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+
+            btn.style.left = Math.max(padding, x) + 'px';
+            btn.style.top = Math.max(padding, y) + 'px';
+            btn.style.transform = 'none'; // Remove centered transform once it moves
         }
 
         // Success Event
         function happilyEverAfter() {
-            // Confetti
-            const duration = 15 * 1000;
+            const duration = 10 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
 
             const interval = setInterval(function () {
                 const timeLeft = animationEnd - Date.now();
@@ -209,10 +254,12 @@
                 confetti({ ...defaults, particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } });
             }, 250);
 
-            // UI Changes
             document.querySelector('.btn-group').style.display = 'none';
             document.getElementById('finalMessage').style.display = 'block';
             document.body.style.backgroundColor = '#ffc0cb';
+
+            // Scroll to the message
+            document.getElementById('finalMessage').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Simple Floating "Petals" (Hearts)
@@ -223,9 +270,10 @@
             petal.style.position = 'absolute';
             petal.style.left = Math.random() * 100 + 'vw';
             petal.style.top = '-20px';
-            petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            petal.style.fontSize = (Math.random() * 15 + 10) + 'px';
             petal.style.opacity = Math.random();
             petal.style.transition = 'transform 5s linear, top 5s linear';
+            petal.style.zIndex = '1';
 
             container.appendChild(petal);
 
@@ -236,7 +284,7 @@
 
             setTimeout(() => petal.remove(), 6000);
         }
-        setInterval(createPetal, 300);
+        setInterval(createPetal, 400);
     </script>
 </body>
 
