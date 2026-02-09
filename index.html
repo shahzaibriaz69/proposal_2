@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever Love</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@1&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --rose: #e63946;
+            --blush: #ffb4a2;
+            --cream: #fff5f5;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--cream);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Romantic Floating Petals Animation */
+        .petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--rose);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .sub-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+        }
+
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            width: 80%;
+            margin: 40px 0;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Letter Section */
+        .letter-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            line-height: 1.8;
+            border-left: 5px solid var(--rose);
+        }
+
+        /* Interactive Buttons */
+        .btn-group {
+            margin-top: 50px;
+            position: relative;
+            height: 100px;
+            width: 100%;
+        }
+
+        button {
+            padding: 15px 45px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: 0.4s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background: var(--rose);
+            color: white;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        #noBtn {
+            background: #adb5bd;
+            color: white;
+            position: absolute;
+        }
+
+        #finalMessage {
+            display: none;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="petals" id="petalContainer"></div>
+
+    <section>
+        <h1 id="valentineName">My Dearest Future Wife❤️</h1>
+        <p class="sub-text">Every heartbeat tells a story of you...</p>
+        <p>Scroll down to see why you are my everything.</p>
+    </section>
+
+    <section style="background: #ffe3e3;">
+        <h2>Our Beautiful Moments</h2>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1516589174184-c68536575960?w=500" alt="Us">
+            <img src="https://images.unsplash.com/photo-1522673607200-164883eecd4c?w=500" alt="Us">
+            <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=500" alt="Us">
+        </div>
+        <p class="letter-box">
+            "They say you only fall in love once, but that can't be true. Every time I look at you, I fall in love all
+            over again. You are my best friend, my soulmate, and my greatest adventure."
+        </p>
+    </section>
+
+    <section>
+        <h2>The One Question...</h2>
+        <p class="sub-text">Will you do me the honor of being my Valentine forever?</p>
+
+        <div class="btn-group">
+            <button id="yesBtn" onclick="happilyEverAfter()">YES, A THOUSAND TIMES!</button>
+            <button id="noBtn" onmouseover="runAway()">No</button>
+        </div>
+
+        <div id="finalMessage">
+            <h1 style="font-size: 5rem;">❤️ I LOVE YOU! ❤️</h1>
+            <p>I can't wait to spend the rest of my life making you smile.</p>
+            <div style="font-size: 3rem;">💍</div>
+        </div>
+    </section>
+
+    <script>
+        // Move the "No" button
+        function runAway() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        // Success Event
+        function happilyEverAfter() {
+            // Confetti
+            const duration = 15 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                const particleCount = 50 * (timeLeft / duration);
+                confetti({ ...defaults, particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } });
+            }, 250);
+
+            // UI Changes
+            document.querySelector('.btn-group').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
+            document.body.style.backgroundColor = '#ffc0cb';
+        }
+
+        // Simple Floating "Petals" (Hearts)
+        function createPetal() {
+            const container = document.getElementById('petalContainer');
+            const petal = document.createElement('div');
+            petal.innerHTML = '❤️';
+            petal.style.position = 'absolute';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = '-20px';
+            petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            petal.style.opacity = Math.random();
+            petal.style.transition = 'transform 5s linear, top 5s linear';
+
+            container.appendChild(petal);
+
+            setTimeout(() => {
+                petal.style.top = '100vh';
+                petal.style.transform = `translateX(${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg)`;
+            }, 100);
+
+            setTimeout(() => petal.remove(), 6000);
+        }
+        setInterval(createPetal, 300);
+    </script>
+</body>
+
+</html>
